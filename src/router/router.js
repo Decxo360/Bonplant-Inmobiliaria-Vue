@@ -1,31 +1,31 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeSceen from '../components/Home/HomeSceen'
-import LoginScreen from '../components/auth/LoginScreen'
-import RegisterScreen from '../components/auth/RegisterScreen'
-import Perfil from '../components/Perfil/PerfilScreen'
-import DetallesScreen from '../components/Detalles/DetallesScreen'
+import HomeScreen from '../components/Home/HomeScreen.vue'
+import LoginScreen from '../components/auth/LoginScreen.vue'
+import RegisterScreen from '../components/auth/RegisterScreen.vue'
+import Perfil from '../components/Perfil/PerfilScreen.vue'
+import DetallesScreen from '../components/Detalles/DetallesScreen.vue'
 
 const routes = [
     {
-        path:'/Home',
+        path:'/',
         name:'Home',
-        component: HomeSceen
+        component: HomeScreen
     },
     {
-        path:'/auth/Login',
+        path:'/Login',
         name:'Login',
         component: LoginScreen
-    }
+    },
     {
-        path:'/auth/Register',
+        path:'/Register',
         name:'Register',
         component: RegisterScreen
-    }
+    },
     {
         path:'/Perfil',
         name:'Perfil',
         component:Perfil
-    }
+    },
     {
         path:'/Detalles',
         name:'Detalles',
@@ -37,3 +37,5 @@ const router = createRouter({
     history:createWebHashHistory(),
     routes
 })
+
+export default router
