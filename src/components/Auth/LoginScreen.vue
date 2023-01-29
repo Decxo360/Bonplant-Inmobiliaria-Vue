@@ -1,7 +1,10 @@
 <template lang="">
-    <div class="flex flex-col justify-center items-center w-[100%] h-[100vh] bg-slate-100">
+    <div class="flex justify-center items-center w-[100%] h-[100vh] bg-slate-100">
         <div class="flex flex-col justify-center items-center gap-5 bg-white w-[40%] shadow-lg rounded-md" >            
-          <img src="../../assets/logo.jfif" alt="bonplandlogo">
+            <div class="flex justify-start items-center">
+                <img src="https://img.icons8.com/ios-filled/2x/chevron-left.png" alt="back arrow" class="hover:bg-slate-50 rounded-xl hover:cursor-pointer" width="30" @click="onBack">
+            </div>
+            <img src="../../assets/logo.jfif" alt="bonplandlogo">
             <form action="" class="flex flex-col gap-2 w-[60%]">
                 <label for="">correo</label>
                 <input v-model="correo" type="text" class="border rounded-md h-[50px] ">
@@ -22,31 +25,35 @@
     </div>
 </template>
 <script>
-    import {ref} from 'vue';
+import { ref } from 'vue';
 export default {
     data() {
         return {
             correo: ref(null),
-            contrasena:ref(null),
-            iconos:[{
-                id:1,
-                src:"https://img.icons8.com/ios/512/secured-letter--v1.png"
+            contrasena: ref(null),
+            iconos: [{
+                id: 1,
+                src: "https://img.icons8.com/ios/512/secured-letter--v1.png"
             },
             {
-                id:2,
-                src:"https://img.icons8.com/ios/512/whatsapp.png"
+                id: 2,
+                src: "https://img.icons8.com/ios/512/whatsapp.png"
             },
             {
-                id:3,
-                src:"https://img.icons8.com/ios/512/windows-mobile.png"
+                id: 3,
+                src: "https://img.icons8.com/ios/512/windows-mobile.png"
             }
-        ]
+            ]
         }
     },
-    methods: { 
-        Login(){
-            console.log(this.correo,this.contrasena)
+    methods: {
+        Login() {
+            console.log(this.correo)
+        },
+        onBack() {
+            this.$router.go(-1)
         }
+
     },
 }
 </script>
