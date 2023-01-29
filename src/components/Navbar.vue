@@ -7,8 +7,9 @@
         </div>
         <div class="flex gap-3">
             <button v-if="isLogged == false" class="w-[120px] bg-cyan-500 h-[50px] rounded-lg hover:bg-sky-900 text-white" @click="IrLogin">Logearse</button>
-            <button v-if="isLogged == false" class="w-[120px] bg-cyan-500 h-[50px] rounded-lg hover:bg-green-900 text-white">Registrarse</button>
-            <button v-if="isLogged == true" class="w-[120px] bg-red-900 h-[50px] rounded-lg hover:bg-red-600 text-white">Cerrar Sesion</button>
+            <button v-if="isLogged == false" class="w-[120px] bg-cyan-500 h-[50px] rounded-lg hover:bg-green-900 text-white" @click="IrRegister">Registrarse</button>
+            <button v-if="isLogged == true" class="w-[80px] flex items-center justify-center rounded-lg hover:bg-sky-600 text-white" @click="IrPerfil"><img src="https://img.icons8.com/ios/512/gender-neutral-user--v1.png" alt="perfil" width="50"></button>
+            
         </div>
     </div>
 </template>
@@ -22,17 +23,22 @@ export default {
     methods: {
         IrLogin(){
             this.$router.push({path:'/Login'})
+        },
+        IrRegister(){
+            this.$router.push({path:"/Register"})
+        },
+        IrPerfil(){
+            this.$router.push({path:"/Perfil"})
         }
+    },
+    created() {
+        console.log('router')
     },
 }
 
 </script>
 <style scoped>
-
     .router-link-active{
-        color: rgb(49, 149, 49);
-        font-size: 25px;
+        color: rgb(214, 151, 25);
     }
-
-
 </style>
