@@ -1,11 +1,20 @@
 <template lang="">
     <div>
-        <h1>PerfilScreen</h1>
+        <Navbar></Navbar>
+        <div class="flex flex-row">
+            <SideBar></SideBar>
+            <InfoPersonal></InfoPersonal>
+        </div>
     </div>
 </template>
 <script>
+import Navbar from '../Navbar.vue';
+import SideBar from './SideBar.vue';
+import InfoPersonal from './InfoPersonal.vue';
 export default {
-    
+    components:{
+        Navbar,SideBar,InfoPersonal
+    }
 }
 </script>
 <style lang="">
