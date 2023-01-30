@@ -3,7 +3,8 @@
         <Navbar></Navbar>
         <div class="flex flex-row">
             <SideBar></SideBar>
-            <InfoPersonal></InfoPersonal>
+            <router-view>   
+            </router-view>
         </div>
     </div>
 </template>
