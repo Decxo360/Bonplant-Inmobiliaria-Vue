@@ -11,7 +11,7 @@
                 <label for="">pass</label>
                 <input v-model="contrasena" type="password" class="border rounded-md h-[50px]">
             </form>
-            <button class="w-[80%] bg-indigo-700 h-[50px] text-white rounded-xl hover:bg-indigo-400" @click="Login()">Logearse</button>
+            <button class="w-[80%] bg-indigo-700 h-[50px] text-white rounded-xl hover:bg-indigo-400" @click="LogIn">Logearse</button>
             <div class="flex flex-col justify-end items-end w-[80%] ">
                 <router-link to="/Register" class="hover:text-amber-700">¿No tienes una cuenta?, Haz click aquí para crear una </router-link>
             </div>
@@ -26,9 +26,11 @@
 </template>
 <script>
 import { ref } from 'vue';
+import axios from 'axios';
 export default {
     data() {
         return {
+            nombre:"",
             correo: ref(null),
             contrasena: ref(null),
             iconos: [{
@@ -52,8 +54,21 @@ export default {
         },
         onBack() {
             this.$router.go(-1)
+        },
+        async LogIn(){
+            let response = await axios.post("http://localhost:3030/auth/logIn",{correo:this.correo,contrasena:this.contrasena}).then((res)=>{ return res.data})
+            console.log(response);
+            this.nombre = response.idusuario
+            localStorage.setItem("idusuario",response.idusuario)
+            localStorage.setItem("nombre",response.nombre)
+            localStorage.setItem("apellido_m",response.apellido_m)
+            localStorage.setItem("apellido_p",response.apellido_p)
+            localStorage.setItem("telefono",response.telefono)
+            localStorage.setItem("correo",response.correo)
+            localStorage.setItem("tipo",response.tipo)
+            localStorage.setItem("isLogged",true)
+            this.$router.push({path:'/'})
         }
-
     },
 }
 </script>
