@@ -6,10 +6,16 @@
             </div>
             <img src="../../assets/logo.jfif" alt="bonplandlogo">
             <form action="" class="flex flex-col gap-2 w-[60%]">
-                <label for="">correo</label>
-                <input v-model="correo" type="text" class="border rounded-md h-[50px] ">
-                <label for="">pass</label>
-                <input v-model="contrasena" type="password" class="border rounded-md h-[50px]">
+                <div class="flex flex-col">
+                    <label for="">correo</label>
+                    <input v-model="correo" type="text" class="border rounded-md h-[50px] ">
+                    <span v-if="errorMessage.correo !== null || errorMessage.correo !== ''" class="text-red-600">{{errorMessage.correo}}</span>
+                </div>
+                <div class="flex flex-col">
+                    <label for="">contrasena</label>
+                    <input v-model="contrasena" type="password" class="border rounded-md h-[50px]">
+                    <span v-if="errorMessage.contrasena !== null || errorMessage.contrasena !== ''" class="text-red-600">{{errorMessage.contrasena}}</span>
+                </div>
             </form>
             <button class="w-[80%] bg-indigo-700 h-[50px] text-white rounded-xl hover:bg-indigo-400" @click="LogIn">Logearse</button>
             <div class="flex flex-col justify-end items-end w-[80%] ">
@@ -29,10 +35,14 @@ import { ref } from 'vue';
 import axios from 'axios';
 export default {
     data() {
+        let errorMessage = {
+            correo: null,
+            contrasena: null,
+        }
         return {
-            nombre:"",
             correo: ref(null),
             contrasena: ref(null),
+            errorMessage,
             iconos: [{
                 id: 1,
                 src: "https://img.icons8.com/ios/512/secured-letter--v1.png"
@@ -49,27 +59,44 @@ export default {
         }
     },
     methods: {
-        Login() {
-            console.log(this.correo)
-        },
         onBack() {
             this.$router.go(-1)
         },
         async LogIn(){
-            let response = await axios.post("http://localhost:3030/auth/logIn",{correo:this.correo,contrasena:this.contrasena}).then((res)=>{ return res.data})
-            console.log(response);
-            this.nombre = response.idusuario
-            localStorage.setItem("idusuario",response.idusuario)
-            localStorage.setItem("nombre",response.nombre)
-            localStorage.setItem("apellido_m",response.apellido_m)
-            localStorage.setItem("apellido_p",response.apellido_p)
-            localStorage.setItem("telefono",response.telefono)
-            localStorage.setItem("correo",response.correo)
-            localStorage.setItem("tipo",response.tipo)
-            localStorage.setItem("isLogged",true)
-            this.$router.push({path:'/'})
+            this.validarCampos()
+            if (
+                this.errorMessage.contrasena == "" &&
+                this.errorMessage.correo == ""
+            ) {                
+                let response = await axios.post("http://localhost:3030/auth/logIn",{correo:this.correo,contrasena:this.contrasena}).then((res)=>{ return res.data})
+                localStorage.setItem("idusuario",response.idusuario)
+                localStorage.setItem("nombre",response.nombre)
+                localStorage.setItem("apellido_m",response.apellido_m)
+                localStorage.setItem("apellido_p",response.apellido_p)
+                localStorage.setItem("telefono",response.telefono)
+                localStorage.setItem("correo",response.correo)
+                localStorage.setItem("tipo",response.tipo)
+                localStorage.setItem("isLogged",true)
+                this.$router.push({path:'/'})
+            }else{
+                console.log(this.errorMessage)
+            }
+        },
+        validarCampos(){
+            let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (regex.test(this.correo)) {
+                this.errorMessage.correo = ""
+            } else {
+                this.errorMessage.correo = "Debe de ser un correo valido"
+            }
+            if ( this.contrasena !== " " && this.contrasena !== null) {
+                this.errorMessage.contrasena = ""
+            } else {
+                this.errorMessage.contrasena = "Debe de ingresar una contrasena valida"
+            }
         }
     },
+    
 }
 </script>
 <style lang="">
