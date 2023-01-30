@@ -1,5 +1,8 @@
 <template lang="">
-    <div class="flex flex-col w-[100%] h-[100v] gap-5 justify-center items-center">
+    <div class="flex flex-col w-[100%] h-[100v] gap-5 items-center">
+        <div class="flex justify-center items-center w-[100%] mt-10">
+            <h1 class="text-[50px]">Mis datos</h1>
+        </div>
         <div :class="`bg-slate-300 rounded-full w-[170px] h-[170px] flex justify-center items-center hover:cursor-pointer ${backdrop}`" @mouseover="Editable" @mouseout="NoEditable" @click="$refs.file.click()">
             <img v-if="edit == false" src="https://img.icons8.com/ios/512/gender-neutral-user--v1.png" alt="foto" width="140">
             <input ref="file" @change="uploadFile($event)" type="file" class="hidden"/>
@@ -12,7 +15,7 @@
                 <input v-model="usuario.apellido_P" type="text" class="border p-[15px] rounded-md h-[50px] w-[100%]" >
                 <input v-model="usuario.apellido_M" type="text" class="border p-[15px] rounded-md h-[50px] w-[100%]" >
             </div>
-            <input v-model="usuario.numero" type="text" class="border p-[15px] rounded-md h-[50px] w-[100%]">
+            <input v-model="usuario.telefono" type="text" class="border p-[15px] rounded-md h-[50px] w-[100%]">
             <input v-model="usuario.correo" type="text" class="border p-[15px] rounded-md h-[50px] w-[100%]">
         </form>
         <div class="flex flex-col items-center justify-end w-[80%] gap-8 mb-[50px]">
@@ -21,6 +24,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 import { ref } from 'vue'
 export default {
     data(){
@@ -28,8 +32,10 @@ export default {
             nombre: ref("Diego"),
             apellido_P: ref("Ludnstedt"),
             apellido_M: ref("Muñoz"),
-            numero: ref("+56932706831"),
+            telefono: ref("+56932706831"),
             correo: ref("diegolundstedt99@gmail.com"),
+            contrasena:null,
+            img:null
         }
         return {
             usuario,
@@ -50,7 +56,21 @@ export default {
         uploadFile(event){
             this.inputRef = event.target.files[0]
             console.log(this.inputRef)
+            this.usuario.img = this.inputRef
+        },
+        async obtenerUsuario(){
+            let response = await axios.get('http://localhost:3030/usuario/obtenerUn/1').then((res)=>{return res.data})
+            console.log(response);
+            this.usuario.nombre = response.nombre
+            this.usuario.apellido_M = response.apellido_m
+            this.usuario.apellido_P = response.apellido_p
+            this.usuario.telefono = response.telefono
+            this.usuario.correo = response.correo
         }
+
+    },
+    beforeMount() {
+        this.obtenerUsuario()
     },
 }
 </script>
