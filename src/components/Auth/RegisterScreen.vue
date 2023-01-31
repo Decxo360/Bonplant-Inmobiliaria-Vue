@@ -1,7 +1,7 @@
 <template lang="">
     <div class="flex flex-col w-[100%] h-[100vh] bg-slate-100 gap-5 justify-center items-center">
         <div class="flex flex-col w-[40%] justify-center items-center bg-white gap-5" >
-            <div class="flex justify-start items-center">
+            <div class="flex justify-start items-start w-[100%]">
                 <img src="https://img.icons8.com/ios-filled/2x/chevron-left.png" alt="back arrow" class="hover:bg-slate-50 rounded-xl hover:cursor-pointer" width="30" @click="onBack">
             </div>
             <img src="../../assets/logo.jfif" alt="" width="300"/>
