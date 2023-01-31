@@ -1,5 +1,5 @@
 <template lang="">
-    <div :class="`h-[100vh] ${width} bg-slate-100 flex flex-col `">
+    <div :class="`h-[100%] ${width} bg-slate-100 flex flex-col`">
         <div class="flex flex-row hover:cursor-pointer justify-evenly items-center bg-slate-200 h-[10vh] text-[30px]">
             <div>
                 <img :class="rotate" src="https://img.icons8.com/ios-filled/2x/chevron-left.png" alt="back arrow" class="hover:bg-slate-50 rounded-xl hover:cursor-pointer" @click="onToggle" width="30">
@@ -59,6 +59,7 @@ export default {
         },
         killSesion(){
             localStorage.clear()
+            localStorage.setItem("isLogged",false)
             this.$router.push({path:"/Login"})
         }
     },
