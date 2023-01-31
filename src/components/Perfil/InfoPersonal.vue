@@ -29,11 +29,11 @@ import { ref } from 'vue'
 export default {
     data(){
         const usuario = {
-            nombre: ref("Diego"),
-            apellido_P: ref("Ludnstedt"),
-            apellido_M: ref("Muñoz"),
-            telefono: ref("+56932706831"),
-            correo: ref("diegolundstedt99@gmail.com"),
+            nombre: ref(localStorage.getItem("nombre") || "error"),
+            apellido_P: ref(localStorage.getItem("apellido_P") ||"error"),
+            apellido_M: ref(localStorage.getItem("apellido_M") ||"error"),
+            telefono: ref(localStorage.getItem("telefono")||"error"),
+            correo: ref(localStorage.getItem("correo")||"error"),
             contrasena:null,
             img:null
         }
