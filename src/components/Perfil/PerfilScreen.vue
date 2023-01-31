@@ -3,8 +3,9 @@
         <Navbar></Navbar>
         <div class="flex flex-row">
             <SideBar></SideBar>
-            <router-view>   
-            </router-view>
+            <div class="w-[100%] ">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
 </template>
