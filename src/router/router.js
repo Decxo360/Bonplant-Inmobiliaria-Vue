@@ -8,6 +8,7 @@ import Favoritos from '../components/Perfil/Favoritos.vue'
 import DetallesScreen from '../components/Detalles/DetallesScreen.vue'
 import BuscarScreen from '../components/Buscar/BuscarScreen.vue'
 import NosotrosScreen from '../components/SobreNosotros/NosotrosScreen.vue'
+import LandingScreen from '../components/Landing/LandingScreen.vue'
 
 const routes = [
     {
@@ -18,10 +19,26 @@ const routes = [
     {
         path:'/Login',
         name:'Login',
+        beforeEnter: (to, from, next) => {
+            let isLogged = JSON.parse(localStorage.getItem("isLogged"))
+            if( isLogged==true){
+                next({path:'/InformacionPersonal'})
+            }else{
+                next()
+            }
+        },
         component: LoginScreen
     },
     {
         path:'/Register',
+        beforeEnter: (to, from, next) => {
+            let isLogged = JSON.parse(localStorage.getItem("isLogged"))
+            if(isLogged==true){
+                next({path:'/InformacionPersonal'})
+            }else{
+                next()
+            }
+        },
         name:'Register',
         component: RegisterScreen
     },
@@ -29,15 +46,39 @@ const routes = [
         path:'/Perfil',
         name:'Perfil',
         component:Perfil,
+        beforeEnter: (to, from, next) => {
+            let isLogged = JSON.parse(localStorage.getItem("isLogged"))
+            if(isLogged !== false || isLogged !== undefined || isLogged==true){
+                next()
+            }else{
+                next({path:'/Login'})
+            }
+        },
         children:[
             {
                 path:"/InformacionPersonal",
+                beforeEnter: (to, from, next) => {
+                    let isLogged = JSON.parse(localStorage.getItem("isLogged"))
+                    if(isLogged !== false && isLogged !== undefined && isLogged==true){
+                        next()
+                    }else{
+                        next({path:'/Login'})
+                    }
+                  },
                 component: InfoPersonal,
                 name:"Informacion"
             },
             {
                 path:"/MisFavoritos",
                 component:Favoritos,
+                beforeEnter: (to, from, next) => {
+                    let isLogged = JSON.parse(localStorage.getItem("isLogged"))
+                    if(isLogged !== false || isLogged !== undefined || isLogged==true){
+                        next()
+                    }else{
+                        next({path:'/Login'})
+                    }
+                  },
                 name:"Favs"
             }
         ]
@@ -56,6 +97,11 @@ const routes = [
         path:'/SobreNosotros',
         name:'AboutUs',
         component:NosotrosScreen
+    },
+    {
+        path:'/Landing',
+        name:'Landing',
+        component:LandingScreen
     }
 ]
 
