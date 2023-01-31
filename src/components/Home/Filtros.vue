@@ -1,25 +1,37 @@
 <template lang="">
-    <div class="flex flex-col w-[70%] justify-center items-center h-[300px]">
-        <h1 class="mb-[30px] text-[30px]">Acá está lo que buscas</h1>
-        <div class="w-[80%] flex flex-col gap-5">
-          <select name="" id="" class="h-[60px] bg-slate-500 rounded-lg text-white hover:bg-slate-400 hover:cursor-pointer border border-slate-900">
-            <option value="Casa">Casa</option>
-            <option value="Departamento">Departamento</option>
-          </select>
-          <select name="" id="" class="h-[60px] bg-slate-500 rounded-lg text-white hover:bg-slate-400 hover:cursor-pointer border border-slate-900">
-            <option value="Chile">Chile</option>
-            <option value="Uruguay">Uruguay</option>
-            <option value="Argentina">Argentina</option>
-          </select>
+    <div class="flex flex-col w-[100%] items-center h-[60%] mb-10">
+        <section class="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row justify-around items-center gap-20 w-[70%]">
+          <div :class="`${rotate == true ? 'rotate-90' : ''} w-[100%] sm:w-[100%] md:w-[80%] lg:w-[60%] xl:w-[50%]`">
+            <Item :rotate="rotate" :isVisible="!visible" src="bg-[url(https://th.bing.com/th/id/R.08bdc7b22add66488eba8715d5f1c8f3?rik=nywZg5yr9ubw4w&pid=ImgRaw&r=0)]" texto="Alquiler"></Item>
+          </div>
+          <div :class="` ${rotate == true ? 'rotate-90' : ''} w-[100%] sm:w-[100%] md:w-[80%] lg:w-[60%] xl:w-[50%]`">
+            <Item :rotate="rotate" :isVisible="!visible" src="bg-[url(https://th.bing.com/th/id/OIP.6dLRJCrfdEDZopjGWHyLoQHaF_?pid=ImgDet&w=495&h=400&rs=1)]" texto="Compra"></Item>
+          </div>
+        </section>
+        <div>
+          
         </div>
-        <div class="flex justify-center items-center w-[80%] mt-8">
-            <button class="bg-blue-700 w-[150px] h-[50px] rounded-lg text-white hover:bg-blue-500">Buscar</button>
-        </div>
+        
     </div>
 </template>
 <script>
+import Item from "./Item.vue"
 export default {
-    
+  components: {
+    Item
+  },
+  data() {
+    return {
+      visible: false,
+      rotate : false
+    }
+  },
+  methods: {
+    verContenido() {
+      this.visible = !this.visible
+      this.rotate = !this.rotate
+    }
+  },
 }
 </script>
 <style lang="">
