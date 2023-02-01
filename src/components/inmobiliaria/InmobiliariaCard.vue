@@ -1,6 +1,6 @@
 <template>
-    <div class="w-[80%] shadow-2xl mb-[20px] rounded-xl flex flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-col 2xl:flex-row mt-[50px]">
-        <div class="w-[100%] sm:w-[100%] md:w-[100%] lg:w-[100%] xl:w-[100%] 2xl:w-[64%] ">
+    <div :class="`${vertical !== true ? 'w-[80%]' : 'w-[30%]' }  shadow-2xl mb-[20px] rounded-xl flex flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-row ${vertical !== true ? '2xl:flex-row' : '2xl:flex-col' }  mt-[50px]`">
+        <div :class="`w-[100%] sm:w-[100%] md:w-[100%] lg:w-[100%] xl:w-[100%] ${vertical !== true ? '2xl:w-[44%]' : '2xl:w-[100%]' } `">
             <img src="../../assets/foto1.jpeg" alt="casa" class="w-[100%] rounded-md relative">
             <span class="absolute w-[100px] text-center text-white bg-blue-700 mt-[-150px] sm:mt-[-220px] md:mt-[-235px] lg:mt-[-235px] xl:mt-[-200px] 2xl:mt-[-235px] ml-3 rounded-md">Compra</span>
         </div>
@@ -27,6 +27,11 @@ import FooterCard from "./FooterCard.vue";
 import HeaderCard from "./HeaderCard.vue";
 export default {
     components: { Descripcion, HeaderCard, Detalle, FooterCard },
+    props:{
+        vertical:{
+            type:Boolean
+        }
+    },
     data() {
         return {
             imagenes:[
