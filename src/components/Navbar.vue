@@ -13,17 +13,21 @@
         </div>
         <div class="flex gap-3 justify-center items-center">
             <h1 class="text-white text-[20px]">Bienvenido {{nombre ? nombre : "Usuario"}}</h1>
-            <button v-if="isLogged == false" class="w-[120px] bg-cyan-500 h-[50px] rounded-lg hover:bg-sky-900 text-white" @click="IrLogin">Logearse</button>
-            <button v-if="isLogged == false" class="w-[120px] bg-cyan-500 h-[50px] rounded-lg hover:bg-green-900 text-white" @click="IrRegister">Registrarse</button>
-            <button v-if="isLogged == true" class="w-[80px] flex items-center justify-center rounded-lg hover:bg-sky-600 text-white" @click="IrPerfil"><img src="https://img.icons8.com/ios/512/gender-neutral-user--v1.png" alt="perfil" width="50"></button>
+            <Button @click="IrLogin" v-if="isLogged == false" texto="Logearse"></Button>
+            <Button @click="IrRegister" v-if="isLogged == false" texto="Registrarse"></Button>
+            <Button @click="IrPerfil" v-if="isLogged == true"  img="https://img.icons8.com/ios/512/gender-neutral-user--v1.png"></Button>
         </div>
     </div>
 </template>
 <script>
+import Button from './ui/components/Button.vue'
 export default {   
+    components:{
+        Button
+    },
     data() {
         return {
-            isLogged : JSON.parse(localStorage.getItem("isLogged")) || false,
+            isLogged : JSON.parse(localStorage.getItem("isLogged")) || true,
             nombre: localStorage.getItem("nombre"),
             isAdministrador: localStorage.getItem("tipo") || "usuario"
         }
